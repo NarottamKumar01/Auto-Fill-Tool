@@ -1,3 +1,4 @@
+import { selectResume } from "lib/redux/resumeSlice";
 import { ExpanderWithHeightTransition } from "components/ExpanderWithHeightTransition";
 import {
   DeleteIconButton,
@@ -54,7 +55,9 @@ const FORM_TO_ICON: { [section in ShowForm]: typeof BuildingOfficeIcon } = {
   custom: WrenchIcon,
 };
 
-export const Form = ({
+export const Form = ({ 
+
+
   form,
   addButtonText,
   children,
@@ -82,6 +85,23 @@ export const Form = ({
   };
 
   const Icon = FORM_TO_ICON[form];
+  const resume = useAppSelector(selectResume);
+
+const fields = Object.values(resume || {});
+
+const completedFields = fields.filter(
+  (field) =>
+    field !== "" &&
+    field !== null &&
+    field !== undefined &&
+    !(Array.isArray(field) && field.length === 0)
+).length;
+
+const totalFields = fields.length;
+
+const progress =
+  totalFields === 0 ? 0 : Math.round((completedFields / totalFields) * 100);
+
 
   return (
     <BaseForm
@@ -89,6 +109,21 @@ export const Form = ({
         showForm ? "pb-6" : "pb-2 opacity-60"
       }`}
     >
+    <div style={{ marginBottom: "20px" }}>
+  <p style={{ fontWeight: "600" }}>Resume Completion: {progress}%</p>
+
+  <div style={{ width: "100%", background: "#eee", height: "8px", borderRadius: "4px" }}>
+    <div
+      style={{
+        width: `${progress}%`,
+        background: "#22c55e",
+        height: "100%",
+        borderRadius: "4px",
+        transition: "width 0.3s ease"
+      }}
+    />
+  </div>
+</div>
       <div className="flex items-center justify-between gap-4">
         <div className="flex grow items-center gap-2">
           <Icon className="h-6 w-6 text-gray-600" aria-hidden="true" />
