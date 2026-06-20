@@ -43,7 +43,7 @@ export const TopNavBar = () => {
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
-        <Link href="/">
+        <Link href="/" className="rounded-md bg-white p-1">
           <span className="sr-only">OpenResume</span>
 
           <Image

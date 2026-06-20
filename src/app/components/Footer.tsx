@@ -14,7 +14,7 @@ const Footer = () => {
           {/* Logo + Description */}
           <div>
             <div className="mb-4 flex items-center gap-2">
-                <div className="rounded-md bg-white p-1">
+                <div className="rounded-md bg-white p-1 dark:bg-slate-100">
                     <Image
                      src={logoSrc}
                      alt="OpenResume Logo"
